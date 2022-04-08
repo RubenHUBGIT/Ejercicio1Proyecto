@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.hphis.pojo.Paciente" table="MY_PACIENTE">
+
+        <id name="nhc" type="java.lang.Integer" column="NHC">
+            <generator class="sequence">
+                <param name="sequence">S_PACIENTE</param>
+            </generator>
+        </id>
+
+        <property
+            name="nombre"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="NOMBRE"
+            not-null="true"
+            length="200"/>
+		<property
+            name="apellidos"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="APELLIDOS"
+            not-null="true"
+            length="200"/>
+        <property
+            name="centro"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="CENTRO"
+            not-null="true"
+            length="200"/>
+        <property
+            name="ubicacion"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="UBICACION"
+            not-null="true"
+            length="200"/>
+
+    </class>
+
+</hibernate-mapping>
