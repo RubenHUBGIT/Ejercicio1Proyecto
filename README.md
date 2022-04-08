@@ -1,5 +1,5 @@
 # Ejercicio1Proyecto
-
+//Último intento de Myservlet (no da error pero no muestra el desplgable al dar a buscar).
 //Los archivos no dan errores y el servidor carga pero no me la vista desplegable al dar en buscar. Creo que es porque no mapea la URL.
 //Añado los cambios que he hecho en MyServlet por intuición. No sé si tengo que crear algo fuera de los archivos que temando.
 
@@ -47,7 +47,7 @@
 	<bean id="controllerPaciente"
 		class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
 		<property name="methodNameResolver">
-			<ref bean="MyMethodNameNameResolver" />
+			<ref bean="MyMethodNameResolver" />
 		</property>
 		<property name="delegate">
 			<ref bean="pacienteController" />
@@ -105,8 +105,3 @@
 	<bean id="pacienteDao" class="com.hphis.dao.impl.PacienteDaoImpl" />
 
 </beans>
-
-
-
-2022-04-08 20:30:43,678 ERROR [org.springframework.web.servlet.DispatcherServlet] (default task-1) Context initialization failed: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'urlMapping' defined in ServletContext resource [/WEB-INF/MyServlet-servlet.xml]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'controllerPaciente' defined in ServletContext resource [/WEB-INF/MyServlet-servlet.xml]: Cannot resolve reference to bean 'MyMethodNameNameResolver' while setting bean property 'methodNameResolver'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'MyMethodNameNameResolver' available
-
