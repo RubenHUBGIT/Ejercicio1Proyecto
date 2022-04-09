@@ -47,7 +47,7 @@
 	<bean id="controllerPaciente"
 		class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
 		<property name="methodNameResolver">
-			<ref bean="MyMethodNameResolver" />
+			<ref bean="PacienteNameResolver" />
 		</property>
 		<property name="delegate">
 			<ref bean="pacienteController" />
@@ -63,7 +63,7 @@
 		</property>
 	</bean>
 	
-	<bean id="MyMethodPacienteNameResolver"
+	<bean id="PacienteNameResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
