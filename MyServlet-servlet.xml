@@ -17,6 +17,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="/test/*.test">controller</prop>
+				<prop key="/paciente/*.test">controllerPaciente</prop>
 			</props>
 		</property>
 	</bean>
@@ -38,13 +39,30 @@
 		</property>
 	</bean>
 
+	<bean id="controllerPaciente"
+		class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+		<property name="methodNameResolver">
+			<ref bean="PacienteNameResolver" />
+		</property>
+		<property name="delegate">
+			<ref bean="pacienteController" />
+		</property>
+	</bean>
+
 	<bean id="MyMethodNameResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
 				<prop key="/test/agendaUrgencias.test">agendaUrgencias</prop>
-				<prop key="/test/getPacientes.test">getPacientes</prop>
-
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="PacienteNameResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/paciente/getPacientes.test">getPacientes</prop>
 			</props>
 		</property>
 	</bean>
