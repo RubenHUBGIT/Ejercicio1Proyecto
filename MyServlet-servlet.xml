@@ -18,7 +18,6 @@
 			<props>
 				<prop key="/test/*.test">controller</prop>
 				<prop key="/paciente/*.test">controllerPaciente</prop>
-				<prop key="/centros/*.test">controllerCentros</prop>
 			</props>
 		</property>
 	</bean>
