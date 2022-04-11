@@ -1,0 +1,11 @@
+package com.hphis.dao;
+
+import com.hphis.pojo.Centros;
+
+import java.util.List;
+
+public interface CentrosDao {
+
+	public List<Centros> getCentros();
+	
+}
