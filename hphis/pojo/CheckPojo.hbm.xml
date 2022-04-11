@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.hphis.pojo.CheckPojo" table="CHECK_POJO">
+
+        <id name="id" type="java.lang.Integer" column="ID">
+            <generator class="sequence">
+                <param name="sequence">S_CHECK_POJO</param>
+            </generator>
+        </id>
+
+        <property
+            name="phrase"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="PHRASE"
+            not-null="true"
+            length="200"/>
+            
+    </class>
+
+</hibernate-mapping>
