@@ -1,0 +1,21 @@
+package com.hphis.pojo;
+
+public class Centros {
+
+	private Integer nhc;
+	private String  centro;
+	
+	public Integer getNhc() {
+		return nhc;
+	}
+	public void setNhc(Integer nhc) {
+		this.nhc = nhc;
+	}
+	
+	public String getCentro() {
+		return centro;
+	}
+	public void setCentro(String centro) {
+		this.centro = centro;
+	}
+}
