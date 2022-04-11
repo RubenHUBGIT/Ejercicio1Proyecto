@@ -1,0 +1,11 @@
+package com.hphis.service;
+
+import java.util.List;
+
+import com.hphis.pojo.Centros;
+
+public interface CentrosService {
+
+	public List<Centros> getAllCentros();	
+	
+}
