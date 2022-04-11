@@ -1,0 +1,23 @@
+package com.hphis.dao.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+
+import com.hphis.corp.hibernate.util.HibernateUtil;
+import com.hphis.dao.CentrosDao;
+import com.hphis.pojo.Centros;
+
+public class CentrosDaoImpl implements CentrosDao {
+
+	
+    @Override
+    public List<Centros> getCentros() {
+        Session session = HibernateUtil.currentSession();
+        Criteria criteria = session.createCriteria(Centros.class);
+        return criteria.list();
+    }	
+    
+}
