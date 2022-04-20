@@ -18,6 +18,9 @@
 			<props>
 				<prop key="/test/*.test">controller</prop>
 				<prop key="/paciente/*.test">controllerPaciente</prop>
+				<prop key="/ubicacion/*.test">controllerUbicacion</prop>
+				<prop key="/centro/*.test">controllerCentro</prop>
+				
 			</props>
 		</property>
 	</bean>
@@ -49,13 +52,23 @@
 		</property>
 	</bean>
 
-	<bean id="controllerCentros"
+	<bean id="controllerUbicacion"
 		class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
 		<property name="methodNameResolver">
-			<ref bean="CentrosNameResolver" />
+			<ref bean="UbicacionNameResolver" />
 		</property>
 		<property name="delegate">
-			<ref bean="centrosController" />
+			<ref bean="ubicacionController" />
+		</property>
+	</bean>
+
+	<bean id="controllerCentro"
+		class="org.springframework.web.servlet.mvc.multiaction.MultiActionController">
+		<property name="methodNameResolver">
+			<ref bean="CentroNameResolver" />
+		</property>
+		<property name="delegate">
+			<ref bean="centroController" />
 		</property>
 	</bean>
 
@@ -73,16 +86,36 @@
 		<property name="mappings">
 			<props>
 				<prop key="/paciente/getPacientes.test">getPacientes</prop>
-				<prop key="/paciente/crearPacientes.test">crearPacientes</prop>
+				<prop key="/paciente/addPaciente.test">addPaciente</prop>
+				<prop key="/paciente/editPaciente.test">editPaciente</prop>
+				<prop key="/paciente/deletePaciente.test">deletePaciente</prop>
+				<prop key="/paciente/getPacientesFiltrado.test">getPacientesFiltrado</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="CentrosNameResolver"
+	<bean id="UbicacionNameResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 		<property name="mappings">
 			<props>
-				<prop key="/centros/getCentros.test">getCentros</prop>
+				<prop key="/ubicacion/getUbicaciones.test">getUbicaciones</prop>
+				<prop key="/ubicacion/addUbicacion.test">addUbicacion</prop>
+				<prop key="/ubicacion/editUbicacion.test">editUbicacion</prop>
+				<prop key="/ubicacion/deleteUbicacion.test">deleteUbicacion</prop>
+				<prop key="/ubicacion/getUbicacionesFiltrado.test">getUbicacionesFiltrado</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="CentroNameResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<prop key="/centro/getCentros.test">getCentros</prop>
+				<prop key="/centro/addCentro.test">addCentro</prop>
+				<prop key="/centro/editCentro.test">editCentro</prop>
+				<prop key="/centro/deleteCentro.test">deleteCentro</prop>
+				<prop key="/centro/getCentrosFiltrado.test">getCentrosFiltrado</prop>
 			</props>
 		</property>
 	</bean>
@@ -101,10 +134,17 @@
 		</property>
 	</bean>
 
-	<bean id="centrosController"
-		class="com.hphis.controller.CentrosController">
-		<property name="centrosService">
-			<ref bean="centrosService" />
+	<bean id="ubicacionController"
+		class="com.hphis.controller.UbicacionController">
+		<property name="ubicacionService">
+			<ref bean="ubicacionService" />
+		</property>
+	</bean>
+
+	<bean id="centroController"
+		class="com.hphis.controller.CentroController">
+		<property name="centroService">
+			<ref bean="centroService" />
 		</property>
 	</bean>
 
@@ -124,14 +164,22 @@
 		</property>
 	</bean>
 
-	<bean id="centrosService"
-		class="com.hphis.service.impl.CentrosServiceImpl">
-		<property name="centrosDao">
-			<ref bean="centrosDao" />
+	<bean id="ubicacionService"
+		class="com.hphis.service.impl.UbicacionServiceImpl">
+		<property name="ubicacionDao">
+			<ref bean="ubicacionDao" />
+		</property>
+	</bean>
+	
+	<bean id="centroService"
+		class="com.hphis.service.impl.CentroServiceImpl">
+		<property name="centroDao">
+			<ref bean="centroDao" />
 		</property>
 	</bean>
 
 	<bean id="pacienteDao" class="com.hphis.dao.impl.PacienteDaoImpl" />
-	<bean id="centrosDao" class="com.hphis.dao.impl.CentrosDaoImpl" />
+	<bean id="ubicacionDao" class="com.hphis.dao.impl.UbicacionDaoImpl" />
+	<bean id="centroDao" class="com.hphis.dao.impl.CentroDaoImpl" />
 
 </beans>

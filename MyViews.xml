@@ -20,16 +20,6 @@
 		</property>
 	</bean>
 
-	<bean id="crearPacienteView"
-		class="org.springframework.web.servlet.view.JstlView">
-		<property name="url">
-			<value>/test/agendaUrgencias.jsp</value>
-		</property>
-	</bean>
-
-	<bean id="getPacientes"
+	<bean id="jsonView"
 		class="org.springframework.web.servlet.view.json.JsonView" />
-	<bean id="crearPacientes"
-		class="org.springframework.web.servlet.view.json.JsonView" />
-
 </beans>
