@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.hphis.pojo.Ubicacion" table="MY_UBICACION">
+
+        <id name="codUbicacion" type="java.lang.Integer" column="COD_UBICACION">
+            <generator class="sequence">
+                <param name="sequence">S_UBICACION</param>
+            </generator>
+        </id>
+        
+        <property
+            name="ubicacion"
+            type="com.hphis.corp.hibernate.types.NullStringType"
+            column="UBICACION"
+            not-null="true"
+            length="200"/>
+
+    </class>
+
+</hibernate-mapping>
