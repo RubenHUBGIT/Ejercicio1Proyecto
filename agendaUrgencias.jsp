@@ -5,11 +5,14 @@
 <html>
 	<head>
 	    <title>Agenda de Urgencias</title>
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/test/includes/css/estilo-ui-extra.css" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/test/includes/css/estilo-ui-hcis.css" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/test/includes/css/ui.jqgrid-hcis.css" />
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/test/includes/css/jquery-ui-hcis.css" />
 		<script src="<%=request.getContextPath()%>/test/includes/javascript/jquery/2.2.4/jquery-2.2.4.min.js" type="text/javascript"></script>
-		<script src="<%=request.getContextPath()%>/test/includes/css/bootstrap-4.5/js/bootstrap.bundle.min.js"></script>
+		<script src="<%=request.getContextPath()%>/test/includes/css/bootstrap-4.5/js_5.1.3/bootstrap.bundle.min.js"></script>
 	 	<script src="<%=request.getContextPath()%>/test/includes/javascript/theming.js" type="text/javascript"></script>
 	 	<script src="<%=request.getContextPath()%>/test/includes/javascript/svg-inject.min.js"  type="text/javascript"></script>
 	 	<script src="<%=request.getContextPath()%>/test/includes/javascript/jquery/ui/1.10.2/jquery-ui-1.10.4.js" type="text/javascript"></script>
@@ -17,147 +20,13 @@
 	    <script src="<%=request.getContextPath()%>/test/includes/javascript/jquery/plugins/jqgrid/grid.locale-es.js" type="text/javascript"></script>
 	    <script src="<%=request.getContextPath()%>/test/includes/javascript/jquery/plugins/jqgrid/jquery.jqgrid.js" type="text/javascript"></script>
 	    <script src="<%=request.getContextPath()%>/test/includes/javascript/jquery/plugins/json-2.3/js/jquery.json-2.3.min.js" type="text/javascript"></script>
-	 	<script >
-	 	
-	 		function buscar(){
-	 			viewPanelResultadosPojo();
-	 		}
-	 		
-	 		function limpiar(){
-	 			document.getElementById("centro").value="vacio";
-	 			document.getElementById("selectservicio").value="vacio";
-	 			document.getElementById("nivel_triaje").value="vacio";
-	 			document.getElementById("input_estado").value="vacio";
-	 			document.getElementById("ubicacion").value="vacio";
-	 			document.getElementById("input_medicoResponsable").value="";
-	 			document.getElementById("input_zona").value="";
-	 			
-	 		}
-	 		
-	 		function viewPanelCrearPaciente() {
-	 		    var pars = {nombre: "Julian"};
-	 		    $.ajax({
-	 		        url: '<%=request.getContextPath()%>/paciente/getPacientes.test',
-	 		        type: "get",
-	 		        dataType: 'json',
-	 		        asynchronous: false,
-	 		        cache: false,
-	 		        data: pars,
-	 		        success: function (data, textStatus) {
-	 		            var panelResultados = $("#panelResultadosPojo");
-	 		            panelResultados.jqGrid("clearGridData", true);
-	 		            panelResultados.jqGrid('GridUnload');
-	 		            if (data == '' || data == undefined) {
-	 		                alert("Error al cargar los datos");
-	 		            } else {
-	 		                loadGrid(data);
-	 		                ajustarAltura();
-	 		            }
-	 		        }
-	 		    });
-	 		}	 		
-	 		
-	 		function viewPanelResultadosPojo() {
-	 		    var pars = "";
-	 		    $.ajax({
-	 		        url: '<%=request.getContextPath()%>/paciente/getPacientes.test',
-	 		        type: "get",
-	 		        dataType: 'json',
-	 		        asynchronous: false,
-	 		        cache: false,
-	 		        data: pars,
-	 		        success: function (data, textStatus) {
-	 		            var panelResultados = $("#panelResultadosPojo");
-	 		            panelResultados.jqGrid("clearGridData", true);
-	 		            panelResultados.jqGrid('GridUnload');
-	 		            if (data == '' || data == undefined) {
-	 		                alert("Error al cargar los datos");
-	 		            } else {
-	 		                loadGrid(data);
-	 		                ajustarAltura();
-	 		            }
-	 		        }
-	 		    });
-	 		}
-	 		
-	 		function loadGrid(obj) {
-	 		    var panel = $("#panelResultadosPojo");
-	 		    panel.jqGrid({
-	 		    	cmTemplate: {
-	 		    	    autoResizable: true
-	 		    	},
-	 		    	autoresizeOnLoad: true,
-	 		    	autoResizing: {
-	 		    	    maxColWidth: 500,
-	 		    	},
-	 		    	data: obj.pacienteList,
-	 		        datatype: "local",
-	 		        colNames: ['N.H.C','Nombre','Apellidos','Centro','Ubicación'],
-	 				colModel:[
-	 					{name:'nhc',index:'nhc', width:200},
-	 					{name:'nombre',index:'nombre', width:200},
-	 					{name:'apellidos',index:'apellidos', width:200},
-	 					{name:'centro',index:'centro', width:200},
-	 					{name:'ubicacion',index:'ubicacion', width:200},		
-	 				],
-	 		        multiselect: false,
-	 		        jsonReader: {
-	 		            repeatitems : false
-	 		        },
-	 		        viewrecords: true,
-	 		        shrinkToFit: false,
-	 		        loadComplete : function(id){
-	 		        	setTimeout(function() {
-	 		        		ajustarAltura();
-	 		        	}, 10);
-	 		        },
-	 		        onSortCol: function (index, columnIndex, sortOrder) {
-	 		            sorter = index;
-	 		        },
-	 		        altRows: true, 
-	 		        altclass: 'filapar',
-	 		        pager: "#pager",
-	 		        recordpos:"left",
-	 		        pgbuttons: false,
-	 		        pginput: false,
-	 		        gridview: false,
-	 		        autoencode: true,
-	 		        ignoreCase: true,
-	 		        rowNum: obj.pacienteList.length,
-	 		        hoverrows: false,
-	 		    });
-	 		    panel.jqGrid('hideCol','cb');
-	 		    $('#pager option:last').text('Todos');
-	 		}
-	 		
-	 		function ajustarAltura(){
-	 		    var $grid = $("#panelResultadosPojo");
-	 		    var $divPanel = $('#divResultadosPojo');
-	 		    $grid.setGridWidth($divPanel.width());
-	 		    $grid.setGridHeight(0); // reset b4 computing
-	 		    var header = $grid.prop('grid')['hDiv'];
-	 		    var headerHgt = (header) ? $(header).outerHeight() : 0;
-	 		    var $pager = $($grid.getGridParam("pager"))
-	 		    var pagerHgt = ($pager.length) ? $pager.outerHeight() : 0;
-	 		    var panelHgt = $divPanel.outerHeight();
-	 		    var hgt = panelHgt - headerHgt - pagerHgt;
-	 		    $grid.setGridHeight(hgt);
-	 		}
-	 		
-	 		$(window).resize(function(){
-	 			ajustarAltura();
-		    });
-	 		$(document).on('hide.bs.collapse show.bs.collapse', function (e) {
-	 			ajustarAltura();
-		    });
-		    $(document).on('hidden.bs.collapse shown.bs.collapse', function (e) {
-		        Theming.stopTimer();
-		        ajustarAltura();
-		    });
-	 	</script>
+	 	<script src="<%=request.getContextPath()%>/test/includes/javascript/agendaUrgencias.js" type="text/javascript"></script>
 	</head>
-	<body class="overflow-hidden full-height-layout" data-module="agenda urgencias">
+	<body class="overflow-hidden full-height-layout" data-module="agenda urgencias" onload="onLoad();">
 		<header class="title">Agenda de urgencias</header>
+		
+		<!-- Formulario de filtros -->
+		
 	    <section class="criterios">
 			<header>
 				<button type="button" class="btn collapser" data-toggle="collapse" data-target="#capaCriteriosUrg" aria-expanded="true" aria-controls="capaCriteriosUrg">
@@ -169,100 +38,40 @@
 				<form class="form-search m-0" id="formUrgencias">
 					<div class="divGridUrgencias">
 						<div class="form-group" data-display="justified icons-2">		    
-					    	<label for="centro">Centro</label>  
-						    <select id="centro" name="centro" title="Centro">
-						    	<option value="vacio">&nbsp;</option>
-					            <option>
-					                -- Todos los Centros --
-					            </option>
-					            <option>General Nª Sª Remedios</option>
-					            <option>Hospital del Este</option>
-					            <option>Hospital del Oeste</option>
-					            <option>Costa del Sur</option>
-					            <option>Hospital Regional</option>
+					    	<label for="input_nombre_filtro">Nombre</label>  
+						    <input id="input_nombre_filtro" type="text" id="nombreFiltro" name="nombreFiltro" value="">		    
+						</div>
+						<div class="form-group" data-display="justified icons-2">		    
+					    	<label for="input_apellidos_filtro">Apellidos</label>  
+						    <input id="input_apellidos_filtro" type="text" id="apellidosFiltro" name="apellidosFiltro" value="">		    
+						</div>
+						<div class="form-group" data-display="justified icons-2">		    
+					    	<label for="centro_filtro">Centro</label>  
+						    <select id="centro_filtro" name="centro_filtro" title="Centro">
+					            
 					        </select>			    
-						</div>
-						<div class="form-group" data-display="justified icons-2">
-							<label for="selectservicio">Servicio</label>  
-						    <select name="servicio" id="selectservicio" title='<hu:msg texto="Servicio" ml="TRD005441" />' tabindex="1" >
-					            <option value="vacio">&nbsp;</option>
-					            <option> 
-					                -- Todos los Servicios --
-					            </option>
-					            <option>Digestivo CEX</option>
-					            <option>Cadiología</option>
-					            <option>Anestesia</option>
-					            <option>Consultas Externas</option>
-					            <option>Hospital de Día</option>
-					    	</select>
-						</div>
-						<div class="form-group" data-display="auto label-4">
-							 <label for="responsable">Médico Responsable</label>  
-						     <input class="w-100 mr-0" id="input_medicoResponsable" type="text" id="responsable" name="responsable" value="">
-						     <img id="busquedaMedicoResponsable" name="busquedaMedicoResponsable" src="<%=request.getContextPath()%>/test/imagenes/icons/icon-search-form-field-blue.svg" title="Buscar Médico">
-					         <img id="delMedicoResponsable" name="delMedicoResponsable" src="<%=request.getContextPath()%>/test/imagenes/icons/icon-erase.svg" title="Borrar Médico">
-					         <input type="hidden" id="responsableHidden" name="responsableHidden" value="">
-						</div>
+						</div>												
 						<div class="form-group" data-display="justified icons-2">		    
-					    	<label for="nivel_triaje">Triaje</label>  
-						    <select  id="nivel_triaje" name='nivel_triaje' title="Nivel de triaje" >
-				                <option value="vacio">&nbsp;</option>
-				                <option>Crítico</option>
-				                <option>Estandar</option>
-				                <option>Habitual</option>
-				                <option>Emergencia</option>
-				                <option>Sin prioridad</option>
-							</select>			    
-						</div>
-						<div class="form-group" data-display="justified icons-2">		    
-					    	<label for="input_estado">Estado</label>  
-						    <select  id="input_estado" name='input_estado' title="Estado" >
-				                <option value="vacio">&nbsp;</option>
-				                <option>Pendiente de triaje</option>
-				                <option>Sin atender</option>
-				                <option>Atendiendose</option>
-				                <option>Ingresado sin cama</option>
-				                <option>Pendiente de dar de alta</option>
-							</select>		    
-						</div>
-						<div class="form-group" data-display="justified icons-2">		    
-					    	<label for="input_zona">Zona</label>  
-						    <input id="input_zona" type="text" id="zona" name="zona" value="">		    
-						</div>
-						<div class="form-group" data-display="justified icons-2">		    
-					    	<label for="input_zona">Ubicación</label>  
-						    <select  id="ubicacion" name='ubicacion' title="Ubicación" >
-				                <option value="vacio">&nbsp;</option>
-				                <option>Cama 1001</option>
-				                <option>Cama 1002</option>
-				                <option>Cama 1003</option>
-				                <option>Cama 1004</option>
-				                <option>Cama 1005</option>
+					    	<label for="ubicacion_filtro">Ubicación</label>  
+						    <select  id="ubicacion_filtro" name='ubicacion_filtro' title="Ubicación de paciente" >
+				                
 							</select>	    
-						</div>
-						<div class="form-group" data-display="justified icons-2">
-							<label for="emergencias" class="text-wrap my-auto">Emergencias vitales</label>
-							<input type="checkbox" id="emergencias" title="Emergencias vitales">
-						</div>
-						<div class="form-group" data-display="justified icons-2">
-							<label for="pacientes" class="text-wrap my-auto">Pacientes con datos incompletos</label>
-							<input type="checkbox" id="pacientes" title="Pacientes con datos incompletos">
-						</div>
+						</div>						
 					</div>
 				</form>
 				<section class="form-search buttons border-top">
 						<button class="button" type="button" onclick="javascript:buscar();">Buscar</button>
-						<button class="button clear" type="button" onclick="javascript:limpiar();">Limpiar</button>
+						<button class="button clear" type="button" onclick="javascript:limpiarFiltro();">Limpiar</button>
 				</section>
 			</section>
 		</section>
 		<!-- Tabla -->
 		<div class="hcis-toolbar primary" role="toolbar">
 			<div class="btn-group">
-				<button id = "buttonCrear" type="button" onclick="javascript:crear();">
+				<button type="button" data-bs-toggle="modal" data-bs-target="#addPacienteModal" >
 					<img src="<%=request.getContextPath()%>/test/imagenes/icons/icon-add-new-row-white.svg" title="Crear">
 				</button>
-				<button type="button" onclick="javascript:;">
+				<button type="button" data-bs-toggle="modal" data-bs-target="#editPacienteModal" onclick="javascript:rellenarFormEdit()">
 					<img src="<%=request.getContextPath()%>/test/imagenes/icons/icon-edit.svg" title="Modificar"/>
 				</button>
 			</div>
@@ -273,5 +82,84 @@
 		    </table>
 		</div>
 		<div id="pager"></div>
+		<div class="fixed-bot m-2 justify-content-left">
+			<a type="button" class="btn colorhcis" href="Index.jsp"><i class="fas fa-home"></i></a>
+		</div>
+
+
+<!-- Modal Añadir Paciente -->
+		<div class="modal fade" id="addPacienteModal" tabindex="-1" aria-labelledby="addPacienteModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="addPacienteModalLabel">Añadir Paciente</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <form>
+	                <label  class="form-label">Nombre <span class="fw-light">(*)</span></label>
+	                	<input class="form-control" id="nombrePaciente" required>
+	
+	                <label  class="form-label">Apellidos <span class="fw-light">(*)</span></label>
+	                	<input class="form-control" id="apellidosPaciente" required>
+	
+	                <label  class="form-label">Centro <span class="fw-light">(*)</span></label>
+	                	<select class="form-control "id="centroPaciente" name="centroPaciente">
+						    	<option value="vacio">&nbsp;</option>					            
+					    </select>
+	
+	                <label  class="form-label">Ubicación <span class="fw-light">(*)</span></label>
+	                	<select class="form-control "id="ubicacionPaciente" name="ubicacionPaciente">
+						    	<option value="vacio">&nbsp;</option>					            
+					    </select>
+					<label class="fw-light fs-6 m-2">(*) Campos Requeridos </label>
+              	</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="javascript:addPaciente();">Guardar Paciente</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+<!-- Modal Editar Paciente -->		
+		<div class="modal fade" id="editPacienteModal" tabindex="-1" aria-labelledby="editPacienteModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="editarPacienteModalLabel">Editar Paciente</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		        <form>
+		        	<label  class="form-label">N.H.C <span class="fw-light">(*)</span></label>
+	                	<input class="form-control" id="nhcPaciente" required>
+	                	
+	                <label  class="form-label">Nombre</label>
+	                	<input class="form-control" id="editNombrePaciente">
+	
+	                <label  class="form-label">Apellidos</label>
+	                	<input class="form-control" id="editApellidosPaciente">
+	
+	                <label  class="form-label">Centro</label>
+	                	<select class="form-control "id="editCentroPaciente">
+						    	<option value="vacio">&nbsp;</option>					            
+					    </select>	
+	                <label  class="form-label">Ubicación</label>
+	                	<select class="form-control "id="editUbicacionPaciente" name="ubicacionPaciente">
+						    	<option value="vacio">&nbsp;</option>					            
+					    </select>
+					<label class="fw-light fs-6 m-2">(*) Campos Requeridos </label>
+              	</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="javascript:editPaciente();">Editar Paciente</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</body>
+	
 </html>
